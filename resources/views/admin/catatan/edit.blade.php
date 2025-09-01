@@ -13,12 +13,24 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
-            background-attachment: fixed;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 70%, #0f0f23 100%);
             min-height: 100vh;
             color: #e2e8f0;
-            line-height: 1.6;
+            align-items: center;
+            justify-content: center;
         }
+
+        /* Animated background elements */
+        body::before {
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(147, 51, 234, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 70%, rgba(59, 130, 246, 0.04) 0%, transparent 50%);
+            animation: float 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
 
         .container {
             max-width: 900px;
