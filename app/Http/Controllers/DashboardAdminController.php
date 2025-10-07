@@ -13,7 +13,7 @@ class DashboardAdminController extends Controller
     {
         $totalPegawai = User::where('role', 'pegawai')->count();
         $totalCatatan = Catatan::count();
-        $totalAnggaran = Anggaran::sum('jumlah'); // ganti sesuai field kamu
+        $totalAnggaran = Anggaran::sum('jumlah');
 
         $catatanList = Catatan::with('user')->get();
         $pegawaiList = User::where('role', 'pegawai')->get();

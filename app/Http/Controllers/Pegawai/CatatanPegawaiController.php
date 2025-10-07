@@ -13,7 +13,7 @@ class CatatanPegawaiController extends Controller
     public function index()
     {
         $catatan = Catatan::where('user_id', Auth::id())
-            ->with('anggaran') // supaya data anggaran langsung ikut diambil
+            ->with('anggaran')
             ->latest()
             ->get();
 
@@ -35,7 +35,7 @@ class CatatanPegawaiController extends Controller
         'keterangan_anggaran' => 'nullable|string',
     ]);
 
-    // Simpan catatan
+
     $catatan = Catatan::create([
         'user_id' => Auth::id(),
         'tujuan' => $request->tujuan,
@@ -43,7 +43,7 @@ class CatatanPegawaiController extends Controller
         'keterangan' => $request->keterangan,
     ]);
 
-    // Simpan anggaran yang terhubung ke catatan ini
+
     $catatan->anggaran()->create([
         'jumlah' => $request->jumlah_anggaran,
         'keterangan' => $request->keterangan_anggaran,

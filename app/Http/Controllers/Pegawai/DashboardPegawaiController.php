@@ -13,7 +13,6 @@ class DashboardPegawaiController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil catatan milik pegawai yang login
         $catatan = Catatan::where('user_id', $user->id)->latest()->get();
 
         return view('dashboard-pegawai', compact('user', 'catatan'));

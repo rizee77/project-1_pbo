@@ -506,7 +506,7 @@
                         <th>Anggaran</th>
                     </tr>
                 </thead>
-                                <tbody>
+                    <tbody>
                     @forelse($catatan as $c)
                         <tr>
                             <td>{{ $c->tujuan }}</td>

@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('anggarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('catatan_id')->constrained()->onDelete('cascade');
-            $table->integer('jumlah'); // jumlah dalam rupiah
+            $table->integer('jumlah'); 
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
 
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('anggarans');

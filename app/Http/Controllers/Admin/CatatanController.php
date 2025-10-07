@@ -9,7 +9,6 @@ use App\Models\Anggaran;
 
 class CatatanController extends Controller
 {
-    // 📌 1. Tampilkan semua catatan pegawai
     public function index()
     {
         $catatanList = Catatan::with('user')->latest()->get();
@@ -61,43 +60,43 @@ class CatatanController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'tujuan' => 'required|string|max:255',
-        'tanggal' => 'required|date',
-        'keterangan' => 'nullable|string',
-        'jumlah_anggaran' => 'required|integer|min:0',
-        'keterangan_anggaran' => 'nullable|string',
-    ]);
-
-    $catatan = Catatan::findOrFail($id);
-
-    $catatan->update([
-        'user_id' => $request->user_id,
-        'tujuan' => $request->tujuan,
-        'tanggal' => $request->tanggal,
-        'keterangan' => $request->keterangan,
-    ]);
-
-    // Update atau buat anggaran baru
-    if ($catatan->anggaran) {
-        $catatan->anggaran->update([
-            'jumlah' => $request->jumlah_anggaran,
-            'keterangan' => $request->keterangan_anggaran,
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'tujuan' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'keterangan' => 'nullable|string',
+            'jumlah_anggaran' => 'required|integer|min:0',
+            'keterangan_anggaran' => 'nullable|string',
         ]);
-    } else {
-        $catatan->anggaran()->create([
-            'jumlah' => $request->jumlah_anggaran,
-            'keterangan' => $request->keterangan_anggaran,
+
+        $catatan = Catatan::findOrFail($id);
+
+        $catatan->update([
+            'user_id' => $request->user_id,
+            'tujuan' => $request->tujuan,
+            'tanggal' => $request->tanggal,
+            'keterangan' => $request->keterangan,
         ]);
+
+
+        if ($catatan->anggaran) {
+            $catatan->anggaran->update([
+                'jumlah' => $request->jumlah_anggaran,
+                'keterangan' => $request->keterangan_anggaran,
+            ]);
+        } else {
+            $catatan->anggaran()->create([
+                'jumlah' => $request->jumlah_anggaran,
+                'keterangan' => $request->keterangan_anggaran,
+            ]);
+        }
+
+        return redirect()->route('admin.catatan.index')->with('success', 'Catatan berhasil diperbarui.');
     }
 
-    return redirect()->route('admin.catatan.index')->with('success', 'Catatan berhasil diperbarui.');
-}
 
 
-    // 📌 6. Hapus catatan
     public function destroy($id)
     {
         $catatan = Catatan::findOrFail($id);

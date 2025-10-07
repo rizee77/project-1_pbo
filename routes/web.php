@@ -20,7 +20,7 @@ Route::get('/dashboard', function () {
     } elseif (Auth::user()->role === 'pegawai') {
         return redirect()->route('pegawai.dashboard');
     }
-    abort(403); // kalau rolenya nggak dikenal
+    abort(403);
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/admin', function () {
